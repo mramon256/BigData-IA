@@ -222,7 +222,7 @@ print("Resultado opción: ", mensaje)
 
 # Código de la solución del ejercicio 9
 productos = ["monitor", "auriculares", "lámpara de escritorio"]
-precios = [159.95, 72.50, 34.99]
+precios = [30, 300, 500]
 cliente = {
     "nombre": "Pablo",
     "es_socio": True,
@@ -232,12 +232,12 @@ cliente = {
 cupones_validos = {"BIENVENIDO20", "OTOÑO15", "ENVIO2026"}
 cupon_usado = "BIENVENIDO20"
 total_pedido = precios[0] + precios[1] + precios[2]
-tiene_descuento = bool
+tiene_descuento = False
 total_final = 0.0
 mensaje = ""
 
 if cliente["es_socio"] or cupon_usado in cupones_validos:
-    tiene_descuento = True
+    tiene_descuento == True
     total_final = total_pedido * 10 / 100
 else:
     total_final == total_pedido
@@ -289,7 +289,7 @@ curso_elegido = "Desarrollo de aplicaciones en Python"
 curso_existe = curso_elegido in cursos_disponibles
 cumple_edad = candidato["edad"] >= requisitos[0]
 cumple_nota = candidato["nota"] >= requisitos[1]
-cumple_permiso = bool
+cumple_permiso = True
 mensaje = ""
 estado = ""
 if requisitos[2] == True:
