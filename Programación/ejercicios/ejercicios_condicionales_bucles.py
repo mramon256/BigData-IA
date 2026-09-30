@@ -13,14 +13,17 @@ notas = [5, 9, 8, 6, 4, 9, 8, 4.5, 7, 6, 4]
 aprobadas = 0
 suspendidas = 0
 for nota in notas:
+    print("Estas son las notas: ", nota)
     if nota >= 5:
-        aprobadas =+ aprobadas
+        aprobadas = aprobadas + 1
     else:
-        suspendidas += suspendidas
+        suspendidas = suspendidas + 1
 
 print("Solución del ejercicio 1")
+#print("Estas son las notas: ", nota)
 print("Notas aprobadas: ", aprobadas)
 print("Notas suspendidas: ", suspendidas)
+print("Nota media: ", (aprobadas + suspendidas))
 
 
 
@@ -30,5 +33,3 @@ print("Notas suspendidas: ", suspendidas)
 # i+=1 es igual que i++ ?
 
 # Ejercicio 12. "zip" y "enumerate" en iterables
-
-
