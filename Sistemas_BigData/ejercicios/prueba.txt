@@ -1,0 +1,11 @@
+1. npx shadcn@latest init --preset b1sAmnakK --template next
+
+2. NOMBRE PARA PROJECTO
+
+3. Ir a carpeta dashboard
+
+4. npm run dev
+
+5. page.tsx la que muestra contenido de la página
+
+
