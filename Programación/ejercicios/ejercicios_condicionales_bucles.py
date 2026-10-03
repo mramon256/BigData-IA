@@ -200,6 +200,15 @@ print("Total productos que tienen menos de 10 unidades:", cont_productos)
 # Condición: Debe utilizar listas, for, enumerate, if, break y una variable booleana de control.    
 
 alumnos = ["Ana", "Paco", "Marta", "Luis", "Elena", "Carlos", "Sara"]
+buscar_nombre = "Carlos"
+for posicion, nombre in alumnos:
+    if nombre == buscar_nombre:
+        break
+    else:
+        print("Alumno no encontrado")
+    print("El siguiente nombre está en la posición: ", posicion)
+    
+
 
 
 # Ejercicio 11. Diferencias y similitudes:
