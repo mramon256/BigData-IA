@@ -9,7 +9,7 @@
 # Condición: Debe utilizar listas, bucle for, operadores de comparación y condicionales.
 
 # Código de la solución del ejercicio 1
-notas = [5, 9, 8, 6, 4, 9, 8, 4.5, 7, 6]
+notas = [5, 9, 8, 6, 4, 10, 8, 4.5, 7, 6]
 aprobadas = 0
 suspendidas = 0
 suma_notas = 0
@@ -17,9 +17,8 @@ nota_media = 0
 mensaje = ""
 
 print("Solución del ejercicio 1")
-print("Lista notas: ", end="")
 for nota in notas:
-    print(nota, end=", ")
+    print("Lista notas:", nota, end=", ")
     suma_notas += nota
     if nota >= 5:
         aprobadas = aprobadas + 1
@@ -75,7 +74,6 @@ else:
 # Código de la solución del ejercicio 3
 print("***********************************************************************************")
 print("Solución del ejercicio 3")
-print("Datos del alumno: ")
 alumno = {
     "nombre": "Pablo",
     "edad": 23,
@@ -83,17 +81,18 @@ alumno = {
     "nota_media": 7,
     "faltas": 5
 }
+print("Datos del alumno: ")
 aprobado = True
 recibir_aviso = False
 for valor in alumno.values():
     print(valor)
 
 if alumno["nota_media"] >= 5:
-    print("¿Alumno aprueba? ", aprobado, " ¿Alumno recibe aviso? ", recibir_aviso)
+    print("¿Alumno aprueba? ", aprobado, " ¿Alumno recibe aviso?", recibir_aviso)
 elif alumno["nota_media"] >= 5 and alumno["faltas"] > 10:
-    print("¿Alumno aprueba? ", aprobado, " ¿Alumno recibe aviso? ", recibir_aviso==True)
+    print("¿Alumno aprueba? ", aprobado, " ¿Alumno recibe aviso?", recibir_aviso==True)
 else:
-    print("¿Alumno aprueba? ", not aprobado)
+    print("¿Alumno aprueba?", not aprobado)
 
 
 # Ejercicio 4. Números pares, impares y múltiplos
@@ -116,15 +115,15 @@ pares = []
 impares = []
 multiplos_cinco = []
 for i in range (1, 51):
+    if i % 2 == 0:
+            cont_pares = cont_pares + 1
+            pares.append(i)
+    else:
+            cont_impares = cont_impares + 1
+            impares.append(i)
     if i % 5 == 0:
         cont_multiplos_cinco = cont_multiplos_cinco + 1
         multiplos_cinco.append(i)
-    if i % 2 == 0:
-        cont_pares = cont_pares + 1
-        pares.append(i)
-    else:
-        cont_impares = cont_impares + 1
-        impares.append(i)
 
 print("Total números pares: ", cont_pares)
 print("Total números impares: ", cont_impares)
@@ -197,23 +196,189 @@ print("Total productos que tienen menos de 10 unidades:", cont_productos)
 # - Si encuentra el nombre, mostrar en qué posición está.
 # - Cuando lo encuentre, detener la búsqueda.
 # - Si no lo encuentra, mostrar Alumno no encontrado.
-# Condición: Debe utilizar listas, for, enumerate, if, break y una variable booleana de control.    
+# Condición: Debe utilizar listas, for, enumerate, if, break y una variable booleana de control.
+
+# Código de la solución del ejercicio 7
+print("***********************************************************************************")
+print("Solución del ejercicio 7")  
 
 alumnos = ["Ana", "Paco", "Marta", "Luis", "Elena", "Carlos", "Sara"]
 buscar_nombre = "Carlos"
-for posicion, nombre in alumnos:
+for posicion, nombre in enumerate(alumnos):
     if nombre == buscar_nombre:
+        print("El siguiente nombre está en la posición: ", posicion)
+        break
+else:
+    print("Alumno no encontrado")
+
+
+# Ejercicio 8. Limpieza de datos
+# Crea una lista con varios números, incluyendo positivos, negativos y ceros.
+# El programa debe:
+# - Recorrer la lista completa.
+# - Ignorar los números negativos usando continue.
+# - Sumar solo los números positivos.
+# - Contar cuántos ceros hay.
+# - Mostrar la suma final y la cantidad de ceros.
+# Condición: Debe utilizar listas, for, continue, un acumulador y un contador.
+
+# Código de la solución del ejercicio 8
+print("***********************************************************************************")
+print("Solución del ejercicio 8")
+
+numeros = [5, -3, 0, 8, -7, 2, 0, -1, 10, -6, 4, 0, -9, 7, -2]
+
+suma_positivos = 0
+cont_ceros = 0
+
+for numero in numeros:
+    if numero < 0:
+        continue
+    elif numero == 0:
+        cont_ceros = cont_ceros + 1
+    else:
+        suma_positivos += numero
+print("Total suma de los números positivos:", suma_positivos)
+print("Total de ceros:", cont_ceros)
+
+
+# Ejercicio 9. Clasificación de usuarios
+# Crea una lista de diccionarios. Cada diccionario representa un usuario con los siguientes datos:
+# nombre, edad, activo, puntos 
+# El programa debe:
+# - Clasificar como Premium a los usuarios activos con 100 puntos o más.
+# - Clasificar como Estándar a los usuarios activos con menos de 100 puntos.
+# - Clasificar como Inactivo a los usuarios que no estén activos.
+# - Además, si el usuario es menor de 18 años, debe indicarse como usuario menor de edad.
+# - Mostrar el nombre de cada usuario y su clasificación.
+# Condición: Debe utilizar una lista de diccionarios, bucle for, booleanos, if, elif, else y operadores lógicos.
+   
+# Código de la solución del ejercicio 9
+print("***********************************************************************************")
+print("Solución del ejercicio 9")
+
+usuarios = [
+    {
+        "nombre": "Luis",
+        "edad": 25,
+        "activo": False,
+        "puntos": 35
+    },
+
+    {
+        "nombre": "Marta",
+        "edad": 16,
+        "activo": True,
+        "puntos": 41,
+    },
+
+    {
+        "nombre": "Juan",
+        "edad": 32,
+        "activo": True,
+        "puntos": 56
+    },
+
+    {
+        "nombre": "Sara",
+        "edad": 22,
+        "activo": True,
+        "puntos": 125 
+    }
+]
+
+for usuario in usuarios:
+    if usuario["activo"] == True and usuario["puntos"] >= 100:
+        print(usuario["nombre"], " es Premium")
+    elif usuario["activo"] == True and usuario["puntos"] < 100:
+        print(usuario["nombre"], "es Estándar")
+    else:
+        print(usuario["nombre"], "es Inactivo")
+
+#elif usuario["activo"] == True and usuario["puntos"] >= 100 and usuario["edad"] < 18:
+#        print(["nombre"], "es Premium menor de 18 años")
+#    elif usuario["activo"] == True and usuario["edad"] < 18:
+#        print(usuario["nombre"], "es Estándar menor de 18 años")
+# FALTA INDICAR USUARIO MENOR DE EDAD
+
+
+# Ejercicio 10. Sistema de intentos
+# Crea una variable codigo_correcto y una lista llamada intentos con varios códigos introducidos.
+# El programa debe:
+# - Recorrer todos los intentos.
+# - Mostrar cada intento realizado.
+# - Si un intento está vacío, debe entrar en una condición donde se use pass como marcador.
+# - Si un intento coincide con el código correcto, mostrar Acceso concedido y terminar el bucle.
+# - Si después de todos los intentos no se encuentra el código correcto, mostrar Acceso denegado.
+# Condición: Debe utilizar listas, for, if, elif, else, break, pass, una variable booleana y un condicional final.
+
+# Código de la solución del ejercicio 10
+print("***********************************************************************************")
+print("Solución del ejercicio 10")
+codigo_correcto = 2026
+intentos = [1234, 5678, 9012, 3456, 7890, 2468, 1357]
+for intento in intentos:
+    print("Intento realizado:", intento)
+    if intento == "":
+        pass
+    elif intento == codigo_correcto:
+        print("Acceso concedido")
         break
     else:
-        print("Alumno no encontrado")
-    print("El siguiente nombre está en la posición: ", posicion)
-    
+        print("Acceso denegado")
 
 
+# Ejercicio 11. Diferencias y similitudes entre: i+=1, i=i+1, i++, ++i, i--, --i
+print("***********************************************************************************")
+print("Solución del ejercicio 11")
 
-# Ejercicio 11. Diferencias y similitudes:
-# i++ es igual que ++i ?
-# i-- es igual que --i?
-# i+=1 es igual que i++ ?
+# i += 1 y  i = i + 1 son equivalentes y existen en Python
+print("******EJEMPLO 1******")
+numeros = [5, -3, 8, -7, 2]
+cont_positivos = 0
 
-# Ejercicio 12. zip y ... en iterables
+for numero in numeros:
+    if numero > 0:
+        cont_positivos += numero
+print("Total de números positivos:", cont_positivos)
+print("******EJEMPLO 2******")
+inventario = {
+    "ratón": 12,
+    "teclado": 5,
+    "cable": 25,
+    "auriculares": 36,
+    "silla de escritorio": 28 
+}
+cont_productos = 0
+
+for producto, unidades in inventario.items():
+    print (producto, ":", unidades)
+    if unidades > 10:
+        cont_productos = cont_productos + 1
+print("Total productos que tienen más de 10 unidades:", cont_productos)
+
+# i++ incrementa la i en 1 y i-- disminuye la i en 1, pero no existen en Python porque este lenguaje no soporta los operadores ++ y --
+
+# ++i también incrementa la i en 1. La diferencia entre i++ y ++i es que, i++ utiliza el valor primero e incrementa después, mientras que ++i incrementa el valor directamente  
+
+
+# Ejercicio 12. Para que sirven las funciones enumerate y zip en iterables?
+# enumerate sirve para saber la posición de cada elemento en una iteración
+print("******EJEMPLO 1 enumerate******")
+notas = [5, 9, 8, 6]
+
+for posicion, nota in enumerate(notas):
+    print(posicion, nota)
+
+# Se puede empezar a contar la posición desde otro número con start:
+print("******EJEMPLO 2 enumerate******")
+for posicion, nota in enumerate(notas, start=1):
+    print(posicion, nota)
+
+# zip sirve para recorrer dos o más iterables a la vez y relaciona sus elementos por posición
+print("******EJEMPLO zip******")
+productos = ["pan", "leche", "arroz", "huevos"]
+precios = [1.20, 0.95, 2.10, 2.80]
+
+for producto, precio in zip(productos, precios):
+    print(producto, precio)
