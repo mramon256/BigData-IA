@@ -13,6 +13,7 @@ usuarios = {
 }
 
 df1 = pd.DataFrame(usuarios)
+print("******DataFrame 1******")
 print(df1)
 
 usuarios = [
@@ -79,6 +80,7 @@ usuarios = [
 ]
 
 df2 = pd.DataFrame(usuarios)
+print("******DataFrame 2******")
 print(df2)
 
 cabecera = ["Nombre", "Edad", "Puntos", "Estudios superiores"]
@@ -94,6 +96,7 @@ usuario9 = ["Lucia", 21, 42, True]
 usuario10 = ["Andres", 24, 37, False]
 
 df3 = pd.DataFrame(usuarios)
+print("******DataFrame 3******")
 print(df3)
 
 usuarios = [
@@ -111,4 +114,5 @@ usuarios = [
 ]
 
 df4 = pd.DataFrame(usuarios)
+print("******DataFrame 4******")
 print(df4)
