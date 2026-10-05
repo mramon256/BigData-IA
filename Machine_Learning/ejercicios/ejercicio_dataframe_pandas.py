@@ -61,16 +61,21 @@ print(df1.describe())
 # - Si tiene 22 años o más, será apta si tiene al menos 40 puntos.
 # - Si tiene menos de 22 años, solo será apta si tiene estudios superiores y al menos 35 puntos.
 # - En cualquier otro caso, no será apta.
-
 print("*********************************************************************************")
 print("******Solución del ejercicio 4******")
-print(df1[(df1["Edad"]>= 22) & (df1["Puntos"]>=40)])
-print(df1[(df1["Edad"]< 22) & (df1["Estudios superiores"]==True) & (df1["Puntos"]>=35)])
+candidato_apto = df1["Puntos"]>=40
+candidato_apto_menor = df1[(df1["Edad"]< 22) & (df1["Estudios superiores"]==True) & (df1["Puntos"]>=35)]
+
+print(candidato_apto)
 
 
-
-print("*********************************************************************************")
+# Ejercicio 5. Añadir una nueva columna
+# Añade al DataFrame una nueva columna llamada apto.
+# La columna debe contener True si la persona es apta y False si no lo es.
+# Después, muestra el DataFrame completo con la nueva columna.
+("*********************************************************************************")
 print("******Solución del ejercicio 5******")
+
 
 
 
