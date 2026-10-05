@@ -14,6 +14,8 @@ aprobadas = 0
 suspendidas = 0
 suma_notas = 0
 nota_media = 0
+nota_mas_alta = notas[0]
+nota_mas_baja = notas[0]
 mensaje = ""
 
 print("Solución del ejercicio 1")
@@ -24,14 +26,18 @@ for nota in notas:
         aprobadas = aprobadas + 1
     else:
         suspendidas = suspendidas + 1
+    if nota > nota_mas_alta:
+        nota_mas_alta = nota
+    if nota < nota_mas_baja:
+        nota_mas_baja = nota
 else:
     nota_media = suma_notas / (aprobadas + suspendidas)
     mensaje = "Aprobada" if nota_media >= 5 else "Suspendida"
 print("Notas aprobadas: ", aprobadas)
 print("Notas suspendidas: ", suspendidas)
 print("Nota media: ", nota_media)
-# FALTA SABER NOTA MÁS ALTA Y MÁS BAJA
-print("Total suma notas: ", suma_notas)
+print("Nota más alta:", nota_mas_alta)
+print("Nota más baja:", nota_mas_baja)
 print("Resultado media final:", mensaje)
 
 # Ejercicio 2. Carrito de la compra
@@ -47,6 +53,7 @@ print("Resultado media final:", mensaje)
 productos = ["pan", "leche", "arroz", "huevos"]
 precios = [1.20, 0.95, 10, 15]
 total_compra = 0
+descuento = 0
 
 print("***********************************************************************************")
 print("Solución del ejercicio 2")
@@ -56,7 +63,8 @@ for producto, precio in zip(productos, precios):
 
 if total_compra > 20:
     print("Coste total de la compra: ", total_compra, "€")
-    total_compra = total_compra - (total_compra *(10/100))
+    descuento = total_compra * 0.10
+    total_compra = total_compra - descuento
     print("Coste total con un 10%" , "de descuento: ", total_compra, "€")
 else:
     print("Coste total de la compra: ", total_compra, "€")
@@ -81,18 +89,20 @@ alumno = {
     "nota_media": 7,
     "faltas": 5
 }
-print("Datos del alumno: ")
-aprobado = True
-recibir_aviso = False
+print("Datos del alumno:", alumno)
+aprueba = alumno["nota_media"] >= 5
+recibe_aviso = alumno["faltas"] > 10
 for valor in alumno.values():
     print(valor)
 
-if alumno["nota_media"] >= 5:
-    print("¿Alumno aprueba? ", aprobado, " ¿Alumno recibe aviso?", recibir_aviso)
-elif alumno["nota_media"] >= 5 and alumno["faltas"] > 10:
-    print("¿Alumno aprueba? ", aprobado, " ¿Alumno recibe aviso?", recibir_aviso==True)
+if aprueba and recibe_aviso:
+    print("El alumno aprueba pero recibe aviso por faltas")
+elif aprueba and not recibe_aviso:
+    print("El alumno aprueba pero no recibe aviso por faltas")
+elif not aprueba and recibe_aviso:
+    print("El alumno no aprueba pero recibe aviso por faltas")
 else:
-    print("¿Alumno aprueba?", not aprobado)
+    print("El alumno no aprueba y no recibe aviso por faltas")
 
 
 # Ejercicio 4. Números pares, impares y múltiplos
@@ -181,7 +191,7 @@ for producto, unidades in inventario.items():
     suma_unidades += unidades
     if unidades == 0:
         print("Productos agotados: ", producto)
-    elif unidades < 10:
+    if unidades < 10: # en lugar de elif se ha de utilizar if
         cont_productos = cont_productos + 1
     else:
         print("El resto de productos tienen más de 10 unidades: ", producto)
@@ -204,9 +214,12 @@ print("Solución del ejercicio 7")
 
 alumnos = ["Ana", "Paco", "Marta", "Luis", "Elena", "Carlos", "Sara"]
 buscar_nombre = "Carlos"
+# añadir variable encontrado con valor booleano
+encontrado = False
 for posicion, nombre in enumerate(alumnos):
     if nombre == buscar_nombre:
         print("El siguiente nombre está en la posición: ", posicion)
+        encontrado = True
         break
 else:
     print("Alumno no encontrado")
@@ -286,14 +299,20 @@ usuarios = [
         "puntos": 125 
     }
 ]
-
+# añadir variable clasificacion tipo string
+clasificacion = ""
 for usuario in usuarios:
     if usuario["activo"] == True and usuario["puntos"] >= 100:
-        print(usuario["nombre"], " es Premium")
+        clasificacion = "Premium"
     elif usuario["activo"] == True and usuario["puntos"] < 100:
-        print(usuario["nombre"], "es Estándar")
+        clasificacion = "Estándar"
     else:
-        print(usuario["nombre"], "es Inactivo")
+        clasificacion = "Inactivo"
+# comprobar si usuario es menor de edad    
+    if usuario["edad"] < 18:
+        clasificacion += " - usuario menor de edad"
+
+    print(usuario["nombre"], ":", clasificacion)
 
 #elif usuario["activo"] == True and usuario["puntos"] >= 100 and usuario["edad"] < 18:
 #        print(["nombre"], "es Premium menor de 18 años")
@@ -316,16 +335,26 @@ for usuario in usuarios:
 print("***********************************************************************************")
 print("Solución del ejercicio 10")
 codigo_correcto = 2026
-intentos = [1234, 5678, 9012, 3456, 7890, 2468, 1357]
+# La lista conviene que sea de strings y se tiene que incluir un intento vacío
+intentos = ["1234", "5678", "9012", "3456", "7890", "", "2468", "1357"]
+
+# utilizar una variable booleana para recordar si el acceso se ha concedio
+acceso_concedido = False
+
 for intento in intentos:
     print("Intento realizado:", intento)
     if intento == "":
         pass
     elif intento == codigo_correcto:
         print("Acceso concedido")
+        acceso_concedido = True
         break
     else:
-        print("Acceso denegado")
+        print("Código incorrecto")
+
+# Acceso denegado no debe imprimirse en cada intento incorrecto, sino solo al final si no se encontró el código correcto.
+if not acceso_concedido:
+    print("Acceso denegado")
 
 
 # Ejercicio 11. Diferencias y similitudes entre: i+=1, i=i+1, i++, ++i, i--, --i
@@ -359,7 +388,14 @@ print("Total productos que tienen más de 10 unidades:", cont_productos)
 
 # i++ incrementa la i en 1 y i-- disminuye la i en 1, pero no existen en Python porque este lenguaje no soporta los operadores ++ y --
 
-# ++i también incrementa la i en 1. La diferencia entre i++ y ++i es que, i++ utiliza el valor primero e incrementa después, mientras que ++i incrementa el valor directamente  
+# ++i se puede escribir en Python pero no incrementa y, --i también se puede escribir pero no decrementa
+print("******EJEMPLO ++i y --i******")
+i = 5
+print(++i)  # muestra 5
+print(--i)  # muestra 5
+
+
+# En otros lenguajes, ++i sí que incrementa la i en 1. La diferencia entre i++ y ++i es que, i++ utiliza el valor primero e incrementa después, mientras que ++i incrementa el valor directamente 
 
 
 # Ejercicio 12. Para que sirven las funciones enumerate y zip en iterables?
