@@ -63,11 +63,16 @@ print(df1.describe())
 # - En cualquier otro caso, no será apta.
 print("*********************************************************************************")
 print("******Solución del ejercicio 4******")
-candidato_apto = df1["Puntos"]>=40
-candidato_apto_menor = df1[(df1["Edad"]< 22) & (df1["Estudios superiores"]==True) & (df1["Puntos"]>=35)]
 
-print(candidato_apto)
-
+def es_apto(fila):
+    if fila["Edad"] >= 22:
+        return fila["Puntos"] >= 40
+    
+    elif fila["Edad"] < 22:
+        return fila["Estudios superiores"] and fila["Puntos"] >= 35
+    
+    else:
+        return False
 
 # Ejercicio 5. Añadir una nueva columna
 # Añade al DataFrame una nueva columna llamada apto.
@@ -76,15 +81,112 @@ print(candidato_apto)
 ("*********************************************************************************")
 print("******Solución del ejercicio 5******")
 
+df1["Apto"] = df1.apply(es_apto, axis=1)
 
+aptos = df1[df1["Apto"] == True]
+print(df1)
 
+# Ejercicio 6. Contar personas aptas y no aptas
+# Usa pandas para contar cuántas personas son aptas y cuántas no.
+# El objetivo es practicar el recuento de valores dentro de una columna.
+# - Método recomendado: value_counts().
+("*********************************************************************************")
+print("******Solución del ejercicio 6******")
+print(df1["Apto"].value_counts())
 
+# Ejercicio 7. Filtrar candidatos aptos
+# Crea un nuevo DataFrame llamado candidatos_aptos.
+# Debe contener solo las personas que han sido aceptadas para el trabajo.
+# Después, muestra esa tabla por pantalla.
+("*********************************************************************************")
+print("******Solución del ejercicio 7******")
+candidatos_aptos = (df1[df1["Apto"] == True])
+print(candidatos_aptos)
 
+# Ejercicio 8. Filtrar candidatos con estudios superiores
+# Crea otro DataFrame con las personas que tienen estudios superiores.
+# Después, responde a las preguntas indicadas.
+# - Cuántas personas tienen estudios superiores.
+# - Cuántas de ellas son aptas.
+# - Hay alguna persona con estudios superiores que no sea apta.
+("*********************************************************************************")
+print("******Solución del ejercicio 8******")
+tiene_estudios_superiores = (df1[df1["Estudios superiores"] == True])
+print(tiene_estudios_superiores.value_counts())
+print(tiene_estudios_superiores["Apto"].value_counts())
 
+# Ejercicio 9. Ordenar los candidatos
+# Ordena el DataFrame por la columna puntos.
+# Debes mostrar la tabla ordenada de menor a mayor puntuación y después de mayor a menor puntuación.
+# - Método recomendado: sort_values().
+("*********************************************************************************")
+print("******Solución del ejercicio 9******")
+print("******Tabla ordenada de menor a mayor******")
+print(df1.sort_values("Puntos"))
+print("******Tabla ordenada de mayor a menor******")
+print(df1.sort_values("Puntos", ascending=False))
 
+# Ejercicio 10. Calcular estadísticas
+# Calcula estadísticas básicas usando pandas.
+# Estas operaciones ayudan a interpretar los datos antes de tomar decisiones.
+# - Edad media.
+# - Puntuación media.
+# - Puntuación máxima.
+# - Puntuación mínima.
+# - Edad de la persona más joven.
+# - Edad de la persona más mayor.
+# - Métodos útiles: mean(), max(), min().
+("*********************************************************************************")
+print("******Solución del ejercicio 10******")
+print("Edad media:", df1["Edad"].mean())
+print("Puntuación media:", df1["Puntos"].mean())
+print("Puntuación máxima:", df1["Puntos"].max())
+print("Edad persona más joven:", df1["Edad"].min())
+print("Edad persona más mayor:", df1["Edad"].max())
 
+# Ejercicio 11. Crear una columna de nivel
+# Añade una nueva columna llamada nivel.
+# La columna debe clasificar a cada persona según sus puntos.
+# - "alto" si tiene 40 puntos o más.
+# - "medio" si tiene entre 35 y 39 puntos.
+# - "bajo" si tiene menos de 35 puntos.
+("*********************************************************************************")
+print("******Solución del ejercicio 11******")
+df1["nivel"] = "bajo"
+df1.loc[df1["Puntos"] >= 40, "nivel"] = "alto"
+df1.loc[(df1["Puntos"] >= 35) & (df1["Puntos"] < 40), "nivel"] = "medio"
+print(df1["nivel"])
+# Ejercicio 12. Agrupar por nivel
+# Agrupa los datos por la columna nivel.
+# Calcula cuántas personas hay en cada nivel, la media de edad en cada nivel y la media de puntos en cada nivel.
+# - Método recomendado: groupby().
+("*********************************************************************************")
+print("******Solución del ejercicio 12******")
+grupo = df1.groupby("nivel")
+print("Total personas en cada nivel")
+print(grupo["Nombre"].count())
+print("Media de edad en cada nivel")
+print(grupo["Edad"].mean())
+print("Media de puntos en cada nivel")
+print(grupo["Puntos"].mean())
 
+# Ejercicio 13. Seleccionar columnas concretas
+# Crea un nuevo DataFrame que solo contenga las columnas nombre, puntos y apto.
+# Este ejercicio sirve para practicar cómo seleccionar solo la información importante.
+("*********************************************************************************")
+print("******Solución del ejercicio 13******")
+nuevo_df = df1[["Nombre", "Puntos", "Apto"]]
+print(nuevo_df)
 
+# Ejercicio 14. Renombrar columnas
+# Renombra las columnas para que tengan nombres más descriptivos.
+# Por ejemplo, nombre puede pasar a Nombre del candidato y puntos a Puntuación.
+# - Método recomendado: rename().
+("*********************************************************************************")
+print("******Solución del ejercicio 14******")
+
+nuevo_df_modificado = nuevo_df.rename(columns={"Nombre" : "Nombre del candidato", "Puntos" : "Puntuación", "Apto" : "Candidato apto"})
+print(nuevo_df_modificado)
 
 
 
