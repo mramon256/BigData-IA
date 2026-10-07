@@ -61,18 +61,17 @@ print(df1.describe())
 # - Si tiene 22 años o más, será apta si tiene al menos 40 puntos.
 # - Si tiene menos de 22 años, solo será apta si tiene estudios superiores y al menos 35 puntos.
 # - En cualquier otro caso, no será apta.
-print("*********************************************************************************")
-print("******Solución del ejercicio 4******")
 
-def es_apto(fila):
-    if fila["Edad"] >= 22:
-        return fila["Puntos"] >= 40
-    
-    elif fila["Edad"] < 22:
-        return fila["Estudios superiores"] and fila["Puntos"] >= 35
-    
-    else:
-        return False
+# Lógica del programa
+# - Si la edad es >= 22: comprobar que los puntos sean >= 40.
+# - Si la edad es < 22: comprobar que tenga estudios superiores y que los puntos sean >= 35.
+# - Si no cumple ninguna de estas condiciones, no es apta.
+print("*********************************************************************************")
+df1["Apto"] = (
+    ((df1["Edad"] >= 22) & (df1["Puntos"] >= 40))
+    |
+    ((df1["Edad"] < 22) & (df1["Estudios superiores"]) & (df1["Puntos"] >= 35))
+)
 
 # Ejercicio 5. Añadir una nueva columna
 # Añade al DataFrame una nueva columna llamada apto.
@@ -80,9 +79,6 @@ def es_apto(fila):
 # Después, muestra el DataFrame completo con la nueva columna.
 ("*********************************************************************************")
 print("******Solución del ejercicio 5******")
-
-df1["Apto"] = df1.apply(es_apto, axis=1)
-
 aptos = df1[df1["Apto"] == True]
 print(df1)
 
@@ -184,9 +180,21 @@ print(nuevo_df)
 # - Método recomendado: rename().
 ("*********************************************************************************")
 print("******Solución del ejercicio 14******")
-
 nuevo_df_modificado = nuevo_df.rename(columns={"Nombre" : "Nombre del candidato", "Puntos" : "Puntuación", "Apto" : "Candidato apto"})
 print(nuevo_df_modificado)
+
+# Ejercicio 15. Repetir la práctica en Google Colab
+# Repite toda la práctica en Google Colab.
+# Crea un cuaderno nuevo, divide el trabajo en celdas y añade texto explicativo antes de cada bloque de código.
+# - Creación de los datos.
+# - Importación de pandas.
+# - Creación del DataFrame.
+# - Exploración inicial.
+# - Creación de la columna apto.
+# - Filtros, ordenaciones, estadísticas y agrupaciones.
+# - Conclusión final explicando qué candidatos serían aceptados.
+
+# Enlace al ejercicio realizado en Google Colab
 
 
 
