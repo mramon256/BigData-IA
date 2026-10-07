@@ -195,7 +195,7 @@ print(nuevo_df_modificado)
 # - Conclusión final explicando qué candidatos serían aceptados.
 
 # Enlace al ejercicio realizado en Google Colab
-
+# https://colab.research.google.com/drive/1K0RTT1Hg3v5ueES9YJ3I_J7kcVb_3tNa?usp=sharing
 
 
 print("******RESTO DE DATAFRAMES******")
