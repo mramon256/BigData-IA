@@ -126,6 +126,7 @@ print("******Solución del ejercicio 10******")
 print("Edad media:", df1["Edad"].mean())
 print("Puntuación media:", df1["Puntos"].mean())
 print("Puntuación máxima:", df1["Puntos"].max())
+print("Puntuación mínima:", df1["Puntos"].min())
 print("Edad persona más joven:", df1["Edad"].min())
 print("Edad persona más mayor:", df1["Edad"].max())
 
