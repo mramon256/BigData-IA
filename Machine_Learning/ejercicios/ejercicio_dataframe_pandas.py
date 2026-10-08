@@ -1,11 +1,5 @@
 import pandas as pd
 
-#-Diccionario.
-#-Lista de Diccionarios.
-#-11 listas separadas.
-#-Lista de tuplas.
-
-
 # Ejercicio 1. Crear la estructura de datos
 # Crea una estructura de datos en Python que guarde toda la información de la tabla anterior.
 # Piensa primero cuál es la forma más cómoda de organizar los datos: una lista para cada columna, un diccionario de listas o una lista de diccionarios.
@@ -15,6 +9,8 @@ import pandas as pd
 # - "puntos"
 # - "estudios_superiores"
 # - Para estudios_superiores, usa valores booleanos: True o False.
+
+# - Diccionario.
 dict_candidatos = {
     "Nombre": ["Ana", "Paco", "Marta", "Luis", "Elena", "Carlos", "Sara", "Miguel", "Lucia", "Andres"],
     "Edad": [23, 21, 19, 25, 22, 20, 18, 27, 21, 24],
@@ -30,6 +26,7 @@ print("******Solución del ejercicio 2******")
 df1 = pd.DataFrame(dict_candidatos)
 print("******DataFrame 1******")
 print(df1)
+
 # Ejercicio 3. Explorar el DataFrame
 # Usa métodos básicos de pandas para conocer mejor los datos antes de modificarlos.
 # Debes mostrar las primeras filas, el tamaño del DataFrame, las columnas, los tipos de datos, la información general y las estadísticas básicas.
@@ -39,7 +36,6 @@ print(df1)
 # - dtypes
 # - info()
 # - describe()
-print("*********************************************************************************")
 print("******Solución del ejercicio 3******")
 print("head(): muestra primeras filas")
 print(df1.head())
@@ -66,7 +62,6 @@ print(df1.describe())
 # - Si la edad es >= 22: comprobar que los puntos sean >= 40.
 # - Si la edad es < 22: comprobar que tenga estudios superiores y que los puntos sean >= 35.
 # - Si no cumple ninguna de estas condiciones, no es apta.
-print("*********************************************************************************")
 df1["Apto"] = (
     ((df1["Edad"] >= 22) & (df1["Puntos"] >= 40))
     |
@@ -77,7 +72,6 @@ df1["Apto"] = (
 # Añade al DataFrame una nueva columna llamada apto.
 # La columna debe contener True si la persona es apta y False si no lo es.
 # Después, muestra el DataFrame completo con la nueva columna.
-("*********************************************************************************")
 print("******Solución del ejercicio 5******")
 aptos = df1[df1["Apto"] == True]
 print(df1)
@@ -86,7 +80,6 @@ print(df1)
 # Usa pandas para contar cuántas personas son aptas y cuántas no.
 # El objetivo es practicar el recuento de valores dentro de una columna.
 # - Método recomendado: value_counts().
-("*********************************************************************************")
 print("******Solución del ejercicio 6******")
 print(df1["Apto"].value_counts())
 
@@ -94,7 +87,6 @@ print(df1["Apto"].value_counts())
 # Crea un nuevo DataFrame llamado candidatos_aptos.
 # Debe contener solo las personas que han sido aceptadas para el trabajo.
 # Después, muestra esa tabla por pantalla.
-("*********************************************************************************")
 print("******Solución del ejercicio 7******")
 candidatos_aptos = (df1[df1["Apto"] == True])
 print(candidatos_aptos)
@@ -105,7 +97,6 @@ print(candidatos_aptos)
 # - Cuántas personas tienen estudios superiores.
 # - Cuántas de ellas son aptas.
 # - Hay alguna persona con estudios superiores que no sea apta.
-("*********************************************************************************")
 print("******Solución del ejercicio 8******")
 tiene_estudios_superiores = (df1[df1["Estudios superiores"] == True])
 print(tiene_estudios_superiores.value_counts())
@@ -115,7 +106,6 @@ print(tiene_estudios_superiores["Apto"].value_counts())
 # Ordena el DataFrame por la columna puntos.
 # Debes mostrar la tabla ordenada de menor a mayor puntuación y después de mayor a menor puntuación.
 # - Método recomendado: sort_values().
-("*********************************************************************************")
 print("******Solución del ejercicio 9******")
 print("******Tabla ordenada de menor a mayor******")
 print(df1.sort_values("Puntos"))
@@ -132,7 +122,6 @@ print(df1.sort_values("Puntos", ascending=False))
 # - Edad de la persona más joven.
 # - Edad de la persona más mayor.
 # - Métodos útiles: mean(), max(), min().
-("*********************************************************************************")
 print("******Solución del ejercicio 10******")
 print("Edad media:", df1["Edad"].mean())
 print("Puntuación media:", df1["Puntos"].mean())
@@ -146,17 +135,16 @@ print("Edad persona más mayor:", df1["Edad"].max())
 # - "alto" si tiene 40 puntos o más.
 # - "medio" si tiene entre 35 y 39 puntos.
 # - "bajo" si tiene menos de 35 puntos.
-("*********************************************************************************")
 print("******Solución del ejercicio 11******")
 df1["nivel"] = "bajo"
 df1.loc[df1["Puntos"] >= 40, "nivel"] = "alto"
 df1.loc[(df1["Puntos"] >= 35) & (df1["Puntos"] < 40), "nivel"] = "medio"
-print(df1["nivel"])
+print(df1)
+
 # Ejercicio 12. Agrupar por nivel
 # Agrupa los datos por la columna nivel.
 # Calcula cuántas personas hay en cada nivel, la media de edad en cada nivel y la media de puntos en cada nivel.
 # - Método recomendado: groupby().
-("*********************************************************************************")
 print("******Solución del ejercicio 12******")
 grupo = df1.groupby("nivel")
 print("Total personas en cada nivel")
@@ -169,7 +157,6 @@ print(grupo["Puntos"].mean())
 # Ejercicio 13. Seleccionar columnas concretas
 # Crea un nuevo DataFrame que solo contenga las columnas nombre, puntos y apto.
 # Este ejercicio sirve para practicar cómo seleccionar solo la información importante.
-("*********************************************************************************")
 print("******Solución del ejercicio 13******")
 nuevo_df = df1[["Nombre", "Puntos", "Apto"]]
 print(nuevo_df)
@@ -178,7 +165,6 @@ print(nuevo_df)
 # Renombra las columnas para que tengan nombres más descriptivos.
 # Por ejemplo, nombre puede pasar a Nombre del candidato y puntos a Puntuación.
 # - Método recomendado: rename().
-("*********************************************************************************")
 print("******Solución del ejercicio 14******")
 nuevo_df_modificado = nuevo_df.rename(columns={"Nombre" : "Nombre del candidato", "Puntos" : "Puntuación", "Apto" : "Candidato apto"})
 print(nuevo_df_modificado)
@@ -199,6 +185,7 @@ print(nuevo_df_modificado)
 
 
 print("******RESTO DE DATAFRAMES******")
+# - Lista de Diccionarios.
 lista1_candidatos = [
     {
         "Nombre": "Ana",
@@ -263,9 +250,8 @@ lista1_candidatos = [
 ]
 
 df2 = pd.DataFrame(lista1_candidatos)
-#print("******DataFrame 2******")
-#print(df2)
 
+# - 11 listas separadas.
 cabecera = ["Nombre", "Edad", "Puntos", "Estudios superiores"]
 candidato1 = ["Ana", 23, 43, True]
 candidato2 = ["Paco", 21, 38, False]
@@ -290,9 +276,8 @@ df3 = pd.DataFrame([
     candidato9,
     candidato10,
 ], columns=cabecera)
-#print("******DataFrame 3******")
-#print(df3)
 
+# - Lista de tuplas.
 lista2_candidatos = [
     ("Ana", 23, 43, True),
     ("Paco", 21, 38, False),
@@ -307,5 +292,3 @@ lista2_candidatos = [
 ]
 
 df4 = pd.DataFrame(lista2_candidatos, columns=("Nombre", "Edad", "Puntos", "Estudios superiores"))
-#print("******DataFrame 4******")
-#print(df4) 
