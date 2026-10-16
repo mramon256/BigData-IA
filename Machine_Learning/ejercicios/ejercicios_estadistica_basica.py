@@ -64,8 +64,23 @@ print("Media puntos:", media_bucle)
 
 # Método 2: funciones
 print("***MÉTODO 2***")
-media_funciones = sum(map(lambda x: x, puntos)) / len(puntos)
+def calcular_media(puntos):
+    # Calcular la media sumando todos los valores y dividiendo
+    # el resultado entre la cantidad de elementos
+    media = sum(puntos) / len(puntos)
+
+    # Devolver la media calculada
+    return media
+
+# Llamar a la función y guardar el resultado
+media_funciones = calcular_media(puntos)
+
+# Función lambda que calcula la media
+media_funcion_lambda = sum(map(lambda x: x, puntos)) / len(puntos)
+
+# Mostrar el resultado
 print("Media puntos:", media_funciones)
+print("Media puntos:", media_funcion_lambda)
 
 # Método 3: pandas
 print("***MÉTODO 3***")
@@ -97,10 +112,12 @@ for punto in puntos:
     cont_puntos = cont_puntos + 1
 
 # Ordenar lista
+# Uso de dos bucles para comparar el un elemento con todos los de después
 for i in range(len(lista_puntos)):
     for j in range(i+1, len(lista_puntos)):
         if lista_puntos[i] > lista_puntos[j]:
             aux = lista_puntos[i]
+            # variable aux guarda un valor de forma temporal
             lista_puntos[i] = lista_puntos[j]
             lista_puntos[j] = aux
             
@@ -194,14 +211,139 @@ print("***Solución del ejercicio 4***")
 
 # Método 1: bucles
 print("***MÉTODO 1***")
-for punto in puntos:
-    print(punto, end=" ")
+cont_iguales = 1
+cant_mayor = 0
+moda_bucle = 0
+frecuencias = {}
+for i in range (len(lista_puntos)):
+    # Procesar cada valor distinto una sola vez
+    if lista_puntos[i] not in frecuencias:
+        # Reiniciar contador 
+        cont_iguales = 1
+    
+        for j in range(i+1, len(lista_puntos)):
+            if lista_puntos[i] == lista_puntos[j]:
+                cont_iguales = cont_iguales + 1
 
+        # Guardar la frecuencia del elemento
+        frecuencias[lista_puntos[i]] = cont_iguales
+
+        # Variable cant_mayor almacena la cantidad más alta de repeticiones.
+        # Comparar cantidad de veces que aparece cada elemento con valor de cant_mayor
+        if cont_iguales > cant_mayor:
+            cant_mayor = cont_iguales
+            moda_bucle = lista_puntos[i]
+
+print("Diccionario de frecuencias:", frecuencias)
+print("Moda:", moda_bucle)
 
 # Método 2: funciones
 print("***MÉTODO 2***")
+def calcular_moda(lista_puntos):
+    # Crear un conjunto con los valores únicos de la lista,
+    valores_unicos = set(lista_puntos)
+
+    # Buscar el valor que aparece más veces en la lista.
+    # lambda x cuenta cuántas veces aparece cada valor (x).
+    # max() devuelve el valor cuya frecuencia es más alta.
+    moda_funciones = max(
+        valores_unicos,
+        key=lambda x: lista_puntos.count(x)
+    )
+
+    # Devolver el valor que tiene la frecuencia más alta.
+    return moda_funciones
+
+
+moda_funciones = calcular_moda(lista_puntos)
+
+print("Moda:", moda_funciones)
 
 # Método 3: pandas
 print("***MÉTODO 3***")
 moda_pandas = puntos.mode()
 print("Moda:", moda_pandas)
+
+# Ejercicio 5. Desviación de cada dato respecto a la media
+# - Calcula primero la media de puntos_prueba.
+# - Calcula una lista de desviaciones con el Método 1: bucle for y append(). Cada valor debe ser punto - media.
+# - Calcula la misma lista con el Método 2: map() y lambda.
+# - Calcula las mismas desviaciones con el Método 3: pandas, restando la media directamente a la columna y creando una columna llamada desviacion.
+# - Muestra las tres versiones y comprueba que contienen los mismos valores.
+# - Explica qué significa que una desviación sea positiva, negativa o cero.
+# Pandas que puedes usar: df["desviacion"] = df["puntos_prueba"] - media.
+print("***Solución del ejercicio 5***")
+
+# Método 1: bucles
+print("***MÉTODO 1***")
+suma = 0
+calculo_desviacion = 0
+lista_desviacion = []
+for valor in puntos:
+    suma += valor
+media_bucle = suma / len(puntos)
+for punto in puntos:
+    calculo_desviacion = punto - media_bucle
+    lista_desviacion.append(calculo_desviacion)
+print(lista_desviacion)
+
+# Método 2: funciones
+print("***MÉTODO 2***")
+def calcular_desviaciones(puntos):
+    # Calcular la media utilizando la expresión anterior
+    media_funciones = sum(map(lambda x: x, puntos)) / len(puntos)
+
+    # Calcular la desviación de cada punto respecto a la media
+    for punto in puntos:
+        calculo_desviacion = punto - media_funciones
+
+        # Mostrar la desviación calculada
+        print(calculo_desviacion)
+
+# Llamar a la función
+calcular_desviaciones(puntos)
+
+# Método 3: pandas
+print("***MÉTODO 3***")
+desviacion = df["desviacion"] = df["puntos_prueba"] - media_pandas
+print("Desviación:", desviacion)
+
+# Ejercicio 6. Varianza
+# - Calcula la varianza de puntos_prueba con el Método 1: bucle for, desviaciones, cuadrados y promedio final.
+# - Recuerda: primero se calcula cada desviación, después se eleva al cuadrado y finalmente se hace la media de esos cuadrados.
+# - Calcula la misma varianza con el Método 2: map(), lambda, sum() y len().
+# - Calcula la misma varianza con el Método 3: pandas usando ddof=0.
+# - Muestra los tres resultados con nombres claros: varianza_bucle, varianza_funciones y varianza_pandas.
+# - Comprueba que los tres resultados coinciden.
+# - Explica qué nos dice la varianza sobre el grupo.
+# Pandas que puedes usar: df["puntos_prueba"].var(ddof=0).
+print("***Solución del ejercicio 6***")
+
+# Método 1: bucles
+print("***MÉTODO 1***")
+suma = 0
+suma_desviacion = 0
+cont_desviacion = 0
+for valor in puntos:
+    suma += valor
+media_bucle = suma / len(puntos)
+for punto in puntos:
+    desviacion = punto - media_bucle
+    desviacion_elevada = desviacion * desviacion
+    suma_desviacion += desviacion_elevada
+    cont_desviacion = cont_desviacion + 1
+    varianza_bucle = suma_desviacion / cont_desviacion
+print("Varianza:", varianza_bucle)
+
+# Método 2: funciones
+print("***MÉTODO 2***")
+def calcular_varianza(puntos):
+    # Calcular la media utilizando la expresión anterior
+    media_funciones = sum(map(lambda x: x, puntos)) / len(puntos)
+
+    
+
+# Método 3: pandas
+print("***MÉTODO 3***")
+varianza_pandas = df["puntos_prueba"].var(ddof=0)
+print("Varianza:", varianza_pandas)
