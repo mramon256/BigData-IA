@@ -338,12 +338,131 @@ print("Varianza:", varianza_bucle)
 # Método 2: funciones
 print("***MÉTODO 2***")
 def calcular_varianza(puntos):
-    # Calcular la media utilizando la expresión anterior
+    # Calcular la media utilizando map(), lambda, sum() y len()
     media_funciones = sum(map(lambda x: x, puntos)) / len(puntos)
 
-    
+    # Calcular la suma de las desviaciones al cuadrado
+    suma_desviacion = sum(map(lambda x: (x - media_funciones) ** 2, puntos))
+
+    # Calcular la varianza dividiendo entre el número de elementos
+    varianza_funciones = suma_desviacion / len(puntos)
+
+    # Devolver la varianza calculada
+    return varianza_funciones
+
+
+# Llamar a la función y guardar el resultado
+varianza_funciones = calcular_varianza(puntos)
+
+# Mostrar la varianza
+print("Varianza:", varianza_funciones)
 
 # Método 3: pandas
 print("***MÉTODO 3***")
 varianza_pandas = df["puntos_prueba"].var(ddof=0)
 print("Varianza:", varianza_pandas)
+
+# Ejercicio 7. Desviación estándar
+# - Calcula la desviación estándar con el Método 1: parte de la varianza calculada con bucles y aplica la raíz cuadrada.
+# - Calcula la misma desviación estándar con el Método 2: usa map(), lambda, sum(), len() y raíz cuadrada.
+# - Calcula la misma desviación estándar con el Método 3: pandas usando .std(ddof=0).
+# - Muestra los tres resultados con nombres claros: desviacion_estandar_bucle, desviacion_estandar_funciones y desviacion_estandar_pandas.
+# - Comprueba que los tres resultados coinciden o que solo cambian por pequeños decimales.
+# - Explica por qué la desviación estándar es más fácil de interpretar que la varianza. 
+# Pandas que puedes usar: df["puntos_prueba"].std(ddof=0).
+print("***Solución del ejercicio 7***")
+
+# Método 1: bucles
+print("***MÉTODO 1***")
+suma = 0
+suma_desviacion = 0
+cont_desviacion = 0
+for valor in puntos:
+    suma += valor
+media_bucle = suma / len(puntos)
+for punto in puntos:
+    desviacion = punto - media_bucle
+    desviacion_elevada = desviacion * desviacion
+    suma_desviacion += desviacion_elevada
+    cont_desviacion = cont_desviacion + 1
+    varianza_bucle = suma_desviacion / cont_desviacion
+    
+
+# Método 2: funciones
+print("***MÉTODO 2***")
+
+# Método 3: pandas
+print("***MÉTODO 3***")
+desviacion_estandar_pandas = df["puntos_prueba"].std(ddof=0)
+print("Desviación estándar:", desviacion_estandar_pandas)
+
+# Ejercicio 8. Normalización min-max
+# - Calcula el mínimo y el máximo de puntos_prueba.
+# - Normaliza cada valor con el Método 1: bucle for y append(), usando la fórmula (valor - mínimo) / (máximo - mínimo).
+# - Normaliza los mismos valores con el Método 2: min(), max(), map() y lambda.
+# - Normaliza los mismos valores con el Método 3: pandas usando .min(), .max() y operaciones sobre columnas. Crea una columna llamada puntos_normalizados.
+# - Muestra las tres versiones y comprueba que contienen los mismos valores.
+# - Explica qué significa que un valor normalizado sea 0, 0.5 o 1.
+# Pandas que puedes usar: min(), max() y operaciones directas sobre columnas.
+print("***Solución del ejercicio 8***")
+
+
+# Método 1: bucles
+print("***MÉTODO 1***")
+
+
+# Método 2: funciones
+print("***MÉTODO 2***")
+
+
+# Método 3: pandas
+print("***MÉTODO 3***")
+normalizar_pandas = df["puntos_normalizados"]
+
+# Ejercicio 9. Estandarización z-score
+# - Calcula la media y la desviación estándar de puntos_prueba.
+# - Estandariza cada valor con el Método 1: bucle for y append(), usando la fórmula z = (valor - media) / desviación estándar.
+# - Estandariza los mismos valores con el Método 2: map(), lambda y las variables media y desviación estándar ya calculadas.
+# - Estandariza los mismos valores con el Método 3: pandas usando .mean(), .std(ddof=0) y operaciones sobre columnas. Crea una columna llamada puntos_estandarizados.
+# - Muestra las tres versiones y comprueba que contienen los mismos valores.
+# - Explica qué significa que un valor z sea positivo, negativo o cercano a 0.
+# Pandas que puedes usar: mean(), std(ddof=0) y operaciones directas sobre columnas.
+print("***Solución del ejercicio 9***")
+
+
+# Método 1: bucles
+print("***MÉTODO 1***")
+
+
+# Método 2: funciones
+print("***MÉTODO 2***")
+
+
+# Método 3: pandas
+print("***MÉTODO 3***")
+estandarizar_pandas = df["puntos_estandarizados"]
+
+
+# Ejercicio 10. Interpretación final
+# - Indica qué alumnos están por encima de la media usando el Método 1: bucle for y condicional.
+# - Indica los mismos alumnos usando el Método 2: filter() y lambda.
+# - Indica los mismos alumnos usando el Método 3: filtrado de pandas con condiciones sobre columnas.
+# - Indica qué alumnos están por debajo de la media usando también los tres métodos.
+# - Indica qué alumno o alumnos tienen el valor normalizado más alto.
+# - Indica qué alumno o alumnos tienen el valor normalizado más bajo.
+# - Indica si hay algún valor que parezca especialmente alejado del resto.
+# - Escribe una conclusión breve sobre el rendimiento general del grupo.
+print("***Solución del ejercicio 10***")
+
+
+# Método 1: bucles
+print("***MÉTODO 1***")
+
+
+# Método 2: funciones
+print("***MÉTODO 2***")
+
+
+# Método 3: pandas
+print("***MÉTODO 3***") 
+
