@@ -1,9 +1,12 @@
-lista_puntos = [4, 5, 6, 8, 10, 20, 30, 40, 50, 60]
-cont_puntos = 0
+notas = [5, 9, 8, 6, 4, 10, 8, 4.5, 7, 6]
+nota_mas_alta = notas[0]
+nota_mas_baja = notas[0]
 posicion = 0
-for punto in lista_puntos:
-    cont_puntos = cont_puntos + 1
-for punto in lista_puntos:
-    if posicion == (cont_puntos//2):
-        print(punto)
-    posicion += 1
+for nota in notas:
+    print(nota)
+    if nota > nota_mas_alta:
+        nota_mas_alta = nota
+    if nota < nota_mas_baja:
+        nota_mas_baja = nota
+print("Nota más alta:", nota_mas_alta)
+print("Nota más baja:", nota_mas_baja)
