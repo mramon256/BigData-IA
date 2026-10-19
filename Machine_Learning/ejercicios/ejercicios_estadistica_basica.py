@@ -20,6 +20,7 @@ puntos = df["puntos_prueba"]
 print("***MÉTODO 1***")
 cont_puntos = 0
 
+# Bucle para averiguar cuantos valores hay en la columna puntos_prueba
 for valor in puntos:
     cont_puntos = cont_puntos + 1
 
@@ -27,6 +28,7 @@ print("Total de valores en la columna puntos:", cont_puntos)
 
 # Método 2: funciones
 print("***MÉTODO 2***")
+# Función para contar valores de la columna puntos_prueba
 def contar_puntos(puntos):
     cont_puntos = 0
 
@@ -34,7 +36,7 @@ def contar_puntos(puntos):
         cont_puntos = cont_puntos + 1
 
     return cont_puntos
-
+# Llamar a la función
 total_puntos = contar_puntos(puntos)
 print("Total de valores en la columna puntos:", total_puntos)
 
@@ -56,6 +58,7 @@ print("***Solución del ejercicio 2***")
 
 # Método 1: bucles
 print("***MÉTODO 1***")
+# Cálculo de la media
 suma = 0
 for valor in puntos:
     suma += valor
@@ -64,9 +67,8 @@ print("Media puntos:", media_bucle)
 
 # Método 2: funciones
 print("***MÉTODO 2***")
+# Función que cálcula la media
 def calcular_media(puntos):
-    # Calcular la media sumando todos los valores y dividiendo
-    # el resultado entre la cantidad de elementos
     media = sum(puntos) / len(puntos)
 
     # Devolver la media calculada
@@ -76,6 +78,8 @@ def calcular_media(puntos):
 media_funciones = calcular_media(puntos)
 
 # Función lambda que calcula la media
+# map() sirve para aplicar la función lambda a cada elemento de un iterable (recorre columna puntos_prueba)
+# sum() suma los valores obtenidos
 media_funcion_lambda = sum(map(lambda x: x, puntos)) / len(puntos)
 
 # Mostrar el resultado
@@ -84,6 +88,7 @@ print("Media puntos:", media_funcion_lambda)
 
 # Método 3: pandas
 print("***MÉTODO 3***")
+# el método mean() devuelve la media de los valores de la columna puntos_prueba
 media_pandas = df["puntos_prueba"].mean() 
 print("Media puntos:", media_pandas)
 
@@ -96,6 +101,8 @@ print("Media puntos:", media_pandas)
 # - Explica por qué la mediana representa el centro de los datos.
 # Pandas que puedes usar: df["puntos_prueba"].median().
 print("***Solución del ejercicio 3***")
+
+# La mediana representa el centro de los datos porque, una vez ordenados, se dividen en dos mitades y queda la misma cantidad a cada lado.
 
 # Método 1: bucles
 print("***MÉTODO 1***")
@@ -112,17 +119,21 @@ for punto in puntos:
     cont_puntos = cont_puntos + 1
 
 # Ordenar lista
-# Uso de dos bucles para comparar el un elemento con todos los de después
+# Uso de dos bucles para comparar un elemento con todos sus posteriores
+# Cada elemento es "i" una vez, que se compara con "j" que equivale a todos los elementos posteriores de "i"
+# Cuando "j" llega al último elemento de lista_puntos, "i" pasa a corresponder al siguiente elemento del de donde estaba
 for i in range(len(lista_puntos)):
     for j in range(i+1, len(lista_puntos)):
         if lista_puntos[i] > lista_puntos[j]:
             aux = lista_puntos[i]
-            # variable aux guarda un valor de forma temporal
+            # variable aux guarda el valor "i" de forma temporal
             lista_puntos[i] = lista_puntos[j]
             lista_puntos[j] = aux
             
 # Buscar los valores centrales
 for punto in lista_puntos:
+    # variable posicion indexa los elementos de lista_puntos
+    # calculo para saber el valor que se encuentra en la posicion anterior al valor central 
     if posicion == (cont_puntos//2) - 1:
         punto_anterior = punto
     if posicion == cont_puntos//2:
@@ -131,13 +142,12 @@ for punto in lista_puntos:
 
 # Si el número de puntos es par
 if cont_puntos % 2 == 0:
+    # se obtiene la mediana sumando el valor central con su elemento anterior y dividiendo el resultado entre 2
     mediana_bucle = (punto_anterior + punto_central)/2
     print("Mediana:",mediana_bucle)
 
 # Si el número de puntos es impar
 else:
-    for punto in lista_puntos:
-        cont_puntos = cont_puntos + 1
     for punto in lista_puntos:
         if posicion == (cont_puntos//2):
             mediana_bucle = punto
@@ -451,8 +461,8 @@ lista_normalizada = []
 
 # Recorrer de nuevo la lista para calcular la normalización
 for punto in puntos:    
-    normalizar_bucle = (punto - minimo_puntos) / (maximo_puntos - minimo_puntos)
-    lista_normalizada.append(float(normalizar_bucle))
+    valor_normalizado_bucle = (punto - minimo_puntos) / (maximo_puntos - minimo_puntos)
+    lista_normalizada.append(float(valor_normalizado_bucle))
 print(lista_normalizada)
     
 # Método 2: funciones
@@ -470,20 +480,20 @@ minimo_funciones = calcular_minimo(puntos)
 maximo_funciones = calcular_maximo(puntos)
 
 # Normalizar los valores utilizando map() y lambda
-normalizar_funciones = map(
+valor_normalizado_funciones = map(
     lambda punto: (punto - minimo_funciones) / (maximo_funciones - minimo_funciones),
     puntos
 )
 
 # Mostrar los valores normalizados
-print(*normalizar_funciones, sep="\n")
+print(*valor_normalizado_funciones, sep="\n")
 
 # Método 3: pandas
 print("***MÉTODO 3***")
 minimo_puntos = df["puntos_prueba"].min()
 maximo_puntos = df["puntos_prueba"].max()
-normalizar_pandas = df["puntos_normalizados"] = (df["puntos_prueba"] - minimo_puntos) / (maximo_puntos - minimo_puntos)
-print("Valor normalizado:", normalizar_pandas)
+valor_normalizado_pandas = df["puntos_normalizados"] = (df["puntos_prueba"] - minimo_puntos) / (maximo_puntos - minimo_puntos)
+print("Valor normalizado:", valor_normalizado_pandas)
 
 # Ejercicio 9. Estandarización z-score
 # - Calcula la media y la desviación estándar de puntos_prueba.
@@ -519,6 +529,7 @@ print(lista_valores_z)
 
 # Método 2: funciones
 print("***MÉTODO 2***")
+print("Valor z:")
 # Función para calcular la media
 def calcular_media(puntos):
     return sum(puntos) / len(puntos)
@@ -584,6 +595,28 @@ for i in range(len(puntos)):
     if puntos[i] < media_bucle:
         print(df["nombre"].iloc[i], puntos[i])
 
+# Bucle para encontrar el valor normalizado más alto y más bajo
+valores_normalizados = df["puntos_normalizados"]
+valor_normalizado_max = valores_normalizados[0]
+valor_normalizado_min = valores_normalizados[0]
+for n in range(len(valores_normalizados)):
+    if valores_normalizados[n] > valor_normalizado_max:
+        valor_normalizado_max = valores_normalizados[n]
+
+    if valores_normalizados[n] < valor_normalizado_min:
+        valor_normalizado_min = valores_normalizados[n]
+
+# Mostrar los alumnos con el valor normalizado más alto y más bajo
+for n in range(len(valores_normalizados)):
+    if valores_normalizados[n] == valor_normalizado_max:
+        print("Alumnos con valor normalizado más alto:")
+        print(df["nombre"].iloc[n], valores_normalizados[n])
+
+    if valores_normalizados[n] == valor_normalizado_min:
+        print("Alumnos con valor normalizado más bajo:")
+        print(df["nombre"].iloc[n], valores_normalizados[n])
+
+
 # Método 2: funciones
 print("***MÉTODO 2***")
 # Función para mostrar los alumnos por encima de la media
@@ -606,6 +639,73 @@ def alumnos_debajo_media(puntos):
 alumnos_encima_media(puntos)
 alumnos_debajo_media(puntos)
 
+# Función para obtener el valor mínimo
+def calcular_minimo(puntos):
+    return min(puntos)
+
+
+# Función para obtener el valor máximo
+def calcular_maximo(puntos):
+    return max(puntos)
+
+
+# Función para normalizar los valores
+def calcular_normalizacion(puntos):
+    minimo = calcular_minimo(puntos)
+    maximo = calcular_maximo(puntos)
+
+    return list(map(
+        lambda punto: (punto - minimo) / (maximo - minimo),
+        puntos
+    ))
+
+
+# Función para encontrar los valores normalizados más alto y más bajo
+def encontrar_valores_normalizados(df):
+    puntos = df["puntos_prueba"].tolist()
+
+    # Calcular la normalización utilizando la función anterior
+    valores_normalizados = calcular_normalizacion(puntos)
+
+    # Buscar el valor normalizado máximo y mínimo sin min() ni max()
+    valor_normalizado_max = valores_normalizados[0]
+    valor_normalizado_min = valores_normalizados[0]
+
+    for n in range(len(valores_normalizados)):
+        if valores_normalizados[n] > valor_normalizado_max:
+            valor_normalizado_max = valores_normalizados[n]
+
+        if valores_normalizados[n] < valor_normalizado_min:
+            valor_normalizado_min = valores_normalizados[n]
+
+    # Encontrar los alumnos con el valor normalizado más alto
+    alumnos_max = filter(
+        lambda n: valores_normalizados[n] == valor_normalizado_max,
+        range(len(valores_normalizados))
+    )
+
+    print("Alumnos con valor normalizado más alto:")
+    print(*map(
+        lambda n: f"{df['nombre'].iloc[n]} {valores_normalizados[n]}",
+        alumnos_max
+    ), sep="\n")
+
+    # Encontrar los alumnos con el valor normalizado más bajo
+    alumnos_min = filter(
+        lambda n: valores_normalizados[n] == valor_normalizado_min,
+        range(len(valores_normalizados))
+    )
+
+    print("Alumnos con valor normalizado más bajo:")
+    print(*map(
+        lambda n: f"{df['nombre'].iloc[n]} {valores_normalizados[n]}",
+        alumnos_min
+    ), sep="\n")
+
+
+# Llamar a la función
+encontrar_valores_normalizados(df)
+
 # Método 3: pandas
 print("***MÉTODO 3***")
 print("Alumnos con puntos por encima de la media")
@@ -616,4 +716,15 @@ print(small_df)
 print("Alumnos con puntos por debajo de la media")
 small_df = df.loc[df["puntos_prueba"] < media_pandas, ["nombre", "puntos_prueba"]]
 print(small_df)
+
+# Encontrar los alumnos con el valor normalizado más alto
+print("Alumnos con valor normalizado más alto:")
+small_df = df.loc[df["puntos_normalizados"].max(), ["nombre", "puntos_normalizados"]]
+print(small_df)
+
+# Encontrar los alumnos con el valor normalizado más bajo
+print("Alumnos con valor normalizado más bajo:")
+small_df = df.loc[df["puntos_normalizados"].min(), ["nombre", "puntos_normalizados"]]
+print(small_df)
+
 
