@@ -12,6 +12,8 @@ import pandas as pd
 # - Explica con tus palabras qué representa cada fila del CSV.
 # Pandas que puedes usar: read_csv(), head(), len().
 
+# Cada fila representa un alumno en el que se le ha registrado sus horas de estudio, los puntos recibidos sobre 100 en una prueba, el número de ejercicios que ha entregado y el total de minutos que ha estado conectado a la plataforma en un día concreto
+
 print("***Solución del ejercicio 1***")
 df = pd.read_csv("Machine_Learning/ejercicios/datos_estadistica_alumnos.csv")
 puntos = df["puntos_prueba"]
@@ -55,6 +57,8 @@ print("Total de valores en la columna puntos:", len(puntos))
 # - Explica qué significa esa media en el contexto de la prueba.
 # Pandas que puedes usar: df["puntos_prueba"].mean().
 print("***Solución del ejercicio 2***")
+
+# En este contexto, la media representa la nota promedio del conjunto de alumnos, calculada mediante la suma de todas las puntuaciones dividida entre el número de alumnos.
 
 # Método 1: bucles
 print("***MÉTODO 1***")
@@ -149,6 +153,7 @@ if cont_puntos % 2 == 0:
 # Si el número de puntos es impar
 else:
     for punto in lista_puntos:
+        # cuando el valor de posicion es equivalente a la mitad de la lista, el elemento en esa posicion es la mediana
         if posicion == (cont_puntos//2):
             mediana_bucle = punto
             print("Mediana:",mediana_bucle)
@@ -156,7 +161,7 @@ else:
 
 # Método 2: funciones
 print("***MÉTODO 2***")
-
+# Función para calcular la mediana
 def calcular_mediana(puntos):
 
     lista_puntos = []
@@ -170,6 +175,7 @@ def calcular_mediana(puntos):
     # Guardar los puntos en una lista y contarlos
     for punto in puntos:
         lista_puntos.append(punto)
+        # función sorted() ordena los elementos de la lista de menor a mayor
         lista_puntos_ordenada = sorted(lista_puntos)
         total_puntos = len(lista_puntos_ordenada)
 
@@ -219,19 +225,26 @@ print("Mediana:",mediana_pandas)
 # Pandas que puedes usar: df["puntos_prueba"].mode().
 print("***Solución del ejercicio 4***")
 
+# La moda es el valor que más se repite
+
 # Método 1: bucles
 print("***MÉTODO 1***")
-cont_iguales = 1
+cont_iguales = 1 # contador inicializado en 1 ya que cada elemento ya aparece 1 vez 
 cant_mayor = 0
 moda_bucle = 0
-frecuencias = {}
+frecuencias = {} # diccionario que almacenará cada valor y las veces aparece
+
+# bucle que recorre las posiciones de lista_puntos
 for i in range (len(lista_puntos)):
-    # Procesar cada valor distinto una sola vez
+    # Comprobar si cada valor de lista_puntos[i] no está entre las claves del diccionario frecuencias
     if lista_puntos[i] not in frecuencias:
         # Reiniciar contador 
         cont_iguales = 1
-    
+
+        # segundo bucle en el que se compara el elemento de la posición "i" con sus posteriores  
         for j in range(i+1, len(lista_puntos)):
+            # Cada elemento es "i" una vez, que se compara con "j" que equivale a todos los elementos posteriores de "i"
+            # Cuando "j" llega al último elemento de lista_puntos, "i" pasa a corresponder al siguiente elemento del de donde estaba
             if lista_puntos[i] == lista_puntos[j]:
                 cont_iguales = cont_iguales + 1
 
@@ -253,7 +266,7 @@ def calcular_moda(lista_puntos):
     # Crear un conjunto con los valores únicos de la lista,
     valores_unicos = set(lista_puntos)
 
-    # Buscar el valor que aparece más veces en la lista.
+    # Función lambda que busca el valor que aparece más veces en la lista (Solucionado utilizando la web w3.schools).
     # lambda x cuenta cuántas veces aparece cada valor (x).
     # max() devuelve el valor cuya frecuencia es más alta.
     moda_funciones = max(
@@ -263,7 +276,6 @@ def calcular_moda(lista_puntos):
 
     # Devolver el valor que tiene la frecuencia más alta.
     return moda_funciones
-
 
 moda_funciones = calcular_moda(lista_puntos)
 
@@ -284,21 +296,30 @@ print("Moda:", moda_pandas)
 # Pandas que puedes usar: df["desviacion"] = df["puntos_prueba"] - media.
 print("***Solución del ejercicio 5***")
 
+# La desviación indica cuánto se aleja un valor de la media. Si la desviación es positiva es que está por encima de la media, si es negativa es que está por debajo de la media y si la desviación es 0 es que está exactamente en la media.
+
 # Método 1: bucles
 print("***MÉTODO 1***")
+print("Desviación:")
 suma = 0
 calculo_desviacion = 0
 lista_desviacion = []
-for valor in puntos:
-    suma += valor
-media_bucle = suma / len(puntos)
+# Cálculo de la media
 for punto in puntos:
+    suma += punto
+media_bucle = suma / len(puntos)
+
+# segundo bucle para calcular la desviación respecto a la media
+for punto in puntos:
+    # se cálcula restando cada elemento de la columna puntos_prueba, con la media
     calculo_desviacion = punto - media_bucle
+    # añadimos con append() el resultado de la desviacion de cada punto a una lista
     lista_desviacion.append(calculo_desviacion)
 print(lista_desviacion)
 
 # Método 2: funciones
 print("***MÉTODO 2***")
+print("Desviación:")
 def calcular_desviaciones(puntos):
     # Calcular la media utilizando la expresión anterior
     media_funciones = sum(map(lambda x: x, puntos)) / len(puntos)
@@ -315,6 +336,7 @@ calcular_desviaciones(puntos)
 
 # Método 3: pandas
 print("***MÉTODO 3***")
+# Crear nueva columna llamada desviacion
 desviacion = df["desviacion"] = df["puntos_prueba"] - media_pandas
 print("Desviación:", desviacion)
 
@@ -329,19 +351,26 @@ print("Desviación:", desviacion)
 # Pandas que puedes usar: df["puntos_prueba"].var(ddof=0).
 print("***Solución del ejercicio 6***")
 
+# La varianza mide el promedio de las desviaciones al cuadrado respecto a la media
+
 # Método 1: bucles
 print("***MÉTODO 1***")
 suma = 0
 suma_desviacion = 0
 cont_desviacion = 0
+# Cálculo de la media
 for valor in puntos:
     suma += valor
 media_bucle = suma / len(puntos)
+
+
 for punto in puntos:
-    desviacion = punto - media_bucle
-    desviacion_elevada = desviacion * desviacion
-    suma_desviacion += desviacion_elevada
-    cont_desviacion = cont_desviacion + 1
+    desviacion = punto - media_bucle # Cálculo de la desviación
+    desviacion_elevada = desviacion * desviacion # desviación de cada punto al cuadrado
+    suma_desviacion += desviacion_elevada # sumar los resultados de las desviaciones al cuadrado
+    cont_desviacion = cont_desviacion + 1 # contar elementos
+    
+    # obtener varianza diviendo el resultado del acumulador entre la cantidad de valores
     varianza_bucle = suma_desviacion / cont_desviacion
 print("Varianza:", varianza_bucle)
 
@@ -382,6 +411,8 @@ print("Varianza:", varianza_pandas)
 # Pandas que puedes usar: df["puntos_prueba"].std(ddof=0).
 print("***Solución del ejercicio 7***")
 
+# La desviación estándar expresa las mismas unidades que los datos originales. La varianza en cambio, se expresa en unidades al cuadrado
+
 # Método 1: bucles
 print("***MÉTODO 1***")
 suma = 0
@@ -397,12 +428,16 @@ for punto in puntos:
     cont_desviacion = cont_desviacion + 1
     varianza_bucle = suma_desviacion / cont_desviacion
 
+# Bucle que calcula los cuadrados de los números del 1 al 15.
+# De esta manera, comprobé que la varianza (204) se encuentra entre los cuadrados de 14 (196) y 15 (225).
 for i in range(1, 15+1):
-    raiz_quadrada = i*i
-    #print ("raiz quadrada de", i, "", raiz_quadrada)
+    cuadrado = i*i
+    print (i, "al cuadrada es:", cuadrado)
 
-# cálculo de la desviación estándar. 
+# cálculo de la desviación estándar.
+# para clacular la raíz cuadrada se eleva la cifra a la potencia de un medio (0.5)
 desviacion_estandar_bucle = varianza_bucle ** 0.5
+# .2f muestra los dos primeros decimales de una cifra
 print(f"Desviación estándar: {desviacion_estandar_bucle:.2f}")
 
 # Método 2: funciones
@@ -411,15 +446,9 @@ print("***MÉTODO 2***")
 def calcular_media(puntos):
     return sum(puntos) / len(puntos)
 
-
-# Función para calcular la varianza
-def calcular_varianza(puntos):
-    media = calcular_media(puntos)
-    suma_desviacion = sum(map(lambda punto: (punto - media) ** 2, puntos))
-    return suma_desviacion / len(puntos)
-
 # Función para calcular la desviación estándar
 def calcular_desviacion_estandar(puntos):
+    # Llamar a la función que calcula la varianza
     varianza = calcular_varianza(puntos)
     desviacion_estandar = varianza ** 0.5
     return desviacion_estandar
@@ -444,8 +473,12 @@ print(f"Desviación estándar: {desviacion_estandar_pandas:.2f}")
 # Pandas que puedes usar: min(), max() y operaciones directas sobre columnas.
 print("***Solución del ejercicio 8***")
 
+# Al normalizar un conjunto de datos, se transforman los valores originales para que queden dentro de un rango fijo.
+# 0 equivale al valor mínimo, 0.5 al punto medio de ese rango y 1 al valor máximo
+
 # Método 1: bucles
 print("***MÉTODO 1***")
+print("Valores normalizados:")
 minimo_puntos = puntos[0]
 maximo_puntos = puntos[0]
 
@@ -462,11 +495,14 @@ lista_normalizada = []
 # Recorrer de nuevo la lista para calcular la normalización
 for punto in puntos:    
     valor_normalizado_bucle = (punto - minimo_puntos) / (maximo_puntos - minimo_puntos)
+    # añadir los valores normalizados a la lista anterior
+    # uso de la float() para convertir los valores de tipo numpy.float64 a float nativos de Python
     lista_normalizada.append(float(valor_normalizado_bucle))
 print(lista_normalizada)
     
 # Método 2: funciones
 print("***MÉTODO 2***")
+print("Valores normalizados:")
 # Función para obtener el valor mínimo
 def calcular_minimo(puntos):
     return min(puntos)
@@ -486,6 +522,9 @@ valor_normalizado_funciones = map(
 )
 
 # Mostrar los valores normalizados
+# * desempaqueta los elementos de un iterable para que se muestren por separado
+# parámetro "sep" establece separador entre argumentos
+# "\n" representa salto de línea
 print(*valor_normalizado_funciones, sep="\n")
 
 # Método 3: pandas
@@ -493,7 +532,7 @@ print("***MÉTODO 3***")
 minimo_puntos = df["puntos_prueba"].min()
 maximo_puntos = df["puntos_prueba"].max()
 valor_normalizado_pandas = df["puntos_normalizados"] = (df["puntos_prueba"] - minimo_puntos) / (maximo_puntos - minimo_puntos)
-print("Valor normalizado:", valor_normalizado_pandas)
+print("Valores normalizados:", valor_normalizado_pandas)
 
 # Ejercicio 9. Estandarización z-score
 # - Calcula la media y la desviación estándar de puntos_prueba.
@@ -504,6 +543,9 @@ print("Valor normalizado:", valor_normalizado_pandas)
 # - Explica qué significa que un valor z sea positivo, negativo o cercano a 0.
 # Pandas que puedes usar: mean(), std(ddof=0) y operaciones directas sobre columnas.
 print("***Solución del ejercicio 9***")
+
+# z = 0 significa que el dato está en la media, z positivo significa que está por encima y z negativo significa que está por debajo.
+
 # Método 1: bucles
 print("***MÉTODO 1***")
 print("Valor z:")
@@ -521,9 +563,11 @@ for punto in puntos:
     cont_desviacion = cont_desviacion + 1
     varianza_bucle = suma_desviacion / cont_desviacion
     desviacion_estandar_bucle = varianza_bucle ** 0.5
+
 # Recorrer de nuevo la lista para calcular la estandarización
 for punto in puntos:
     z_bucles = (punto - media_bucle) / desviacion_estandar_bucle
+    # uso de "round, 2" para obtener los primeros 2 decimales
     lista_valores_z.append(round(float(z_bucles), 2))
 print(lista_valores_z)
 
@@ -556,9 +600,6 @@ def calcular_z_score(puntos):
 # Llamada a la función
 z_score_funciones = calcular_z_score(puntos)
 
-# * desempaqueta los elementos.
-# f"{valor:.2f}" muestra cada valor con dos decimales.
-#  
 # Mostrar los valores estandarizados
 print(*map(lambda valor: f"{valor:.2f}", calcular_z_score(puntos)), sep="\n")
 
@@ -567,7 +608,7 @@ print(*map(lambda valor: f"{valor:.2f}", calcular_z_score(puntos)), sep="\n")
 print("***MÉTODO 3***")
 desviacion_estandar_pandas = df["puntos_prueba"].std(ddof=0)
 media_pandas = df["puntos_prueba"].mean() 
-z_pandas = df["puntos_estandarizados"] = (df["puntos_prueba"] - media_pandas) / desviacion_estandar_pandas
+z_pandas = df["puntos_estandarizados"] = ((df["puntos_prueba"] - media_pandas) / desviacion_estandar_pandas).round(2)
 # Uso de round(2) para mostrar los valores con dos decimales
 print ("Valor z:", z_pandas.round(2))
 
@@ -622,9 +663,15 @@ print("***MÉTODO 2***")
 # Función para mostrar los alumnos por encima de la media
 def alumnos_encima_media(puntos):
     media = calcular_media(puntos)
+    # "lambda i: puntos[i] > media" comprueba si la puntuación que hay en la posición i es superior a la media
+    # filter() obtiene la posición de los elementos que cumplen con la condición anterior
+    # range(len(puntos)) genera las posiciones
     alumnos = filter(lambda i: puntos[i] > media, range(len(puntos)))
 
     print("Alumnos con puntos por encima de la media")
+    # map() aplica una función a cada elemento de un iterable y devuelve resultados. En este caso se aplica la función a cada posición "i" que contiene alumnos
+    # .iloc[i] accede al nombre situado en la posición i de cada columna
+    # puntos[i] obtiene la puntuación correspondiente  
     print(*map(lambda i: f"{df['nombre'].iloc[i]} {puntos[i]}", alumnos), sep="\n")
 
 # Función para mostrar los alumnos por debajo de la media
@@ -659,9 +706,9 @@ def calcular_normalizacion(puntos):
         puntos
     ))
 
-
 # Función para encontrar los valores normalizados más alto y más bajo
 def encontrar_valores_normalizados(df):
+    # .tolist() sirve para convertir una columna de pandas en una lista Python
     puntos = df["puntos_prueba"].tolist()
 
     # Calcular la normalización utilizando la función anterior
@@ -719,12 +766,16 @@ print(small_df)
 
 # Encontrar los alumnos con el valor normalizado más alto
 print("Alumnos con valor normalizado más alto:")
-small_df = df.loc[df["puntos_normalizados"].max(), ["nombre", "puntos_normalizados"]]
+small_df = df.loc[df["puntos_normalizados"] == df["puntos_normalizados"].max(), ["nombre", "puntos_normalizados"]]
 print(small_df)
 
 # Encontrar los alumnos con el valor normalizado más bajo
 print("Alumnos con valor normalizado más bajo:")
-small_df = df.loc[df["puntos_normalizados"].min(), ["nombre", "puntos_normalizados"]]
+small_df = df.loc[df["puntos_normalizados"] == df["puntos_normalizados"].min(), ["nombre", "puntos_normalizados"]]
 print(small_df)
 
+
+# Conclusión sobre rendimiento del grupo
+
+# En general, el rendimiento del grupo es bastante semejante, ya que las puntuaciones se encuentran relativamente próximas entre sí y no se observan valores extremos. Destacar que 7 alumnos comparten puntuación con algún compañero: 2 alumnos tienen 60 puntos, 2 alumnos con 70 y 3 alumnos con 80. Por otro lado, existe una diferencia considerable entre la puntuación mínima y la máxima, siendo esta última el doble de la primera. Esta diferencia refleja cierta dispersión en los resultados y se tiene en cuenta en el cálculo de la desviación estándar y de las puntuaciones estandarizadas (z-score).
 

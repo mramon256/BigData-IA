@@ -40,6 +40,7 @@ if cont_puntos % 2 == 0:
 # Si el número de puntos es impar
 else:
     for punto in lista_puntos:
+        # cuando el valor de posicion es equivalente a la mitad de la lista, el elemento en esa posicion es la mediana
         if posicion == (cont_puntos//2):
             mediana_bucle = punto
             print("Mediana:",mediana_bucle)
