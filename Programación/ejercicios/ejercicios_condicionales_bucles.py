@@ -121,26 +121,17 @@ print("Solución del ejercicio 4")
 cont_pares = 0
 cont_impares = 0
 cont_multiplos_cinco = 0
-pares = []
-impares = []
-multiplos_cinco = []
 for i in range (1, 51):
     if i % 2 == 0:
-            cont_pares = cont_pares + 1
-            pares.append(i)
+            cont_pares += 1
     else:
-            cont_impares = cont_impares + 1
-            impares.append(i)
+            cont_impares += 1
     if i % 5 == 0:
-        cont_multiplos_cinco = cont_multiplos_cinco + 1
-        multiplos_cinco.append(i)
+        cont_multiplos_cinco += 1
 
 print("Total números pares: ", cont_pares)
 print("Total números impares: ", cont_impares)
 print("Total números múltiplos de 5: ", cont_multiplos_cinco)
-print("Números pares: ", pares)
-print("Números impares: ", impares)
-print("Múltiplos de 5: ", multiplos_cinco)
 
 # Ejercicio 5. Validación de contraseña
 # Crea una variable llamada password con una contraseña de prueba.
