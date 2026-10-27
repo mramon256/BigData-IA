@@ -17,9 +17,14 @@ import pandas as pd
 print("***Solución del ejercicio 1***")
 df = pd.read_csv("Machine_Learning/ejercicios/datos_estadistica_alumnos.csv")
 puntos = df["puntos_prueba"]
+filas = df.to_dict("records")
 
 # Método 1: bucles
 print("***MÉTODO 1***")
+print("Primeras cinco filas con un bucle:")
+for i in range(5):
+    print(filas[i])
+
 cont_puntos = 0
 
 # Bucle para averiguar cuantos valores hay en la columna puntos_prueba
@@ -30,6 +35,9 @@ print("Total de valores en la columna puntos:", cont_puntos)
 
 # Método 2: funciones
 print("***MÉTODO 2***")
+print("Primeras cinco filas con funciones de Python:")
+print(filas[:5])
+
 # Función para contar valores de la columna puntos_prueba
 def contar_puntos(puntos):
     cont_puntos = 0
