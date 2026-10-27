@@ -334,7 +334,7 @@ for usuario in usuarios:
 # Código de la solución del ejercicio 10
 print("***********************************************************************************")
 print("Solución del ejercicio 10")
-codigo_correcto = 2026
+codigo_correcto = "2026"
 # La lista conviene que sea de strings y se tiene que incluir un intento vacío
 intentos = ["1234", "5678", "9012", "3456", "7890", "", "2468", "1357"]
 
