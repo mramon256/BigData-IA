@@ -1,8 +1,13 @@
-productos = ["pan", "leche", "arroz", "huevos"]
-precios = [1.20, 0.95, 2.10, 2.80]
-total = 0
+inventario = {
+ "ratón": 12,
+ "teclado": 5,
+ "monitor": 0,
+ "cable": 25
+}
 
-for producto, precio in zip(productos, precios):
-    total += precio
-    print(producto, precio)
-    print(total)
+total = 0
+for producto, cantidad in inventario.items():
+    total += cantidad
+    if cantidad < 10:
+        print(producto)
+print(total)

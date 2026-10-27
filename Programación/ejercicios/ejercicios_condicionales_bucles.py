@@ -305,12 +305,6 @@ for usuario in usuarios:
 
     print(usuario["nombre"], ":", clasificacion)
 
-#elif usuario["activo"] == True and usuario["puntos"] >= 100 and usuario["edad"] < 18:
-#        print(["nombre"], "es Premium menor de 18 años")
-#    elif usuario["activo"] == True and usuario["edad"] < 18:
-#        print(usuario["nombre"], "es Estándar menor de 18 años")
-# FALTA INDICAR USUARIO MENOR DE EDAD
-
 
 # Ejercicio 10. Sistema de intentos
 # Crea una variable codigo_correcto y una lista llamada intentos con varios códigos introducidos.
